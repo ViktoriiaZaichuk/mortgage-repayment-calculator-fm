@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         'lime': "hsl(61, 70%, 52%)",
+        'lime-light': "hsla(61, 70%, 52%, 0.5)",
         'red': "hsl(4, 69%, 50%)",
         'slate100': "hsl(202, 86%, 94%)",
         'slate300': "hsl(203, 41%, 72%)",
