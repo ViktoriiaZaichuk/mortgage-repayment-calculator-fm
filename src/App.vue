@@ -26,7 +26,10 @@ const clearData = () => {
 
 const calculateRepayments = () => {
     mortageAmountRef.value.validateInput();
-    if (!mortgageAmount.value) {
+    mortageTermRef.value.validateInput();
+    interestRateRef.value.validateInput();
+    // Assuming mortgageType doesn't require validation
+    if (!mortgageAmount.value || !mortgageTerm.value || !interestRate.value) {
         console.log('Some fields are missing');
     } else {
         console.log('Proceeding with calculation...');
@@ -48,8 +51,8 @@ const calculateRepayments = () => {
                 </div>
                 <MortageAmount v-model="mortgageAmount" ref="mortageAmountRef" />
                 <div class="flex flex-col sm:flex-row mb-3 gap-x-4">
-                    <MortageTerm />
-                    <InterestRate />
+                    <MortageTerm v-model="mortgageTerm" ref="mortageTermRef" />
+                    <InterestRate v-model="interestRate" ref="interestRateRef" />
                 </div>
                 <MortageType />
                 <ButtonCalculate @click="calculateRepayments" />

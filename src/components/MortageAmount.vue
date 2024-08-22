@@ -47,11 +47,11 @@ defineExpose({
             Mortage Amount
         </label>
         <div 
-            :class="{'border-red': hasError}"
-            class="flex border-slate300 rounded border hover:border-slate700 rounded-m overflow-clip cursor-pointer">
+            :class="{'border-red': hasError, 'border-slate300': !hasError}"
+            class="flex rounded border hover:border-slate700 rounded-m overflow-clip cursor-pointer">
             <span 
-                :class="{'bg-red text-white': hasError}"
-                class="text-slate500 font-bold bg-slate-100 inline-block p-2 px-3">£</span>
+                :class="{'bg-red text-white': hasError, 'bg-slate-100': !hasError}"
+                class="text-slate500 font-bold inline-block p-2 px-3">£</span>
             <input 
                 type="text"
                 id="mortage-amount"
