@@ -13,11 +13,10 @@ const handleInput = (event) => {
     // Remove any non-numeric characters
     value = value.replace(/[^\d]/g, '');
 
-    // Format the number with commas
     rawValue.value = new Intl.NumberFormat().format(value);
 
-    // Emit the formatted value to the parent
-    emit('update:modelValue', rawValue.value);
+    // Emit the unformatted value to the parent
+    emit('update:modelValue', value);
 };
 
 const validateInput = () => {

@@ -7,10 +7,13 @@ import MortageAmount from './components/MortageAmount.vue';
 import MortageTerm from './components/MortageTerm.vue';
 import MortageType from './components/MortageType.vue';
 
-const mortgageAmount = ref('');
-const mortgageTerm = ref('');
+const mortageAmount = ref('');
+const mortageTerm = ref('');
 const interestRate = ref('');
-const mortgageType = ref('');
+const mortageType = ref('');
+ 
+// Store the result of the calculation
+const calculationResult = ref(null); 
 
 let mortageAmountRef = ref(null);
 let mortageTermRef = ref(null);
@@ -22,17 +25,39 @@ const clearData = () => {
     mortageTermRef.value.clearData();
     interestRateRef.value.clearData();
     mortageTypeRef.value.clearData();
+
+    // Reset the calculation result
+    calculationResult.value = null; 
 };
 
 const calculateRepayments = () => {
     mortageAmountRef.value.validateInput();
     mortageTermRef.value.validateInput();
     interestRateRef.value.validateInput();
-    // Assuming mortgageType doesn't require validation
-    if (!mortgageAmount.value || !mortgageTerm.value || !interestRate.value) {
+    mortageTypeRef.value.validateInput();
+
+    if (!mortageAmount.value || !mortageTerm.value || !interestRate.value || !mortageType.value) {
         console.log('Some fields are missing');
     } else {
-        console.log('Proceeding with calculation...');
+        // Example calculation logic
+        const principal = parseFloat(mortageAmount.value);
+        const term = parseFloat(mortageTerm.value);
+        const rate = parseFloat(interestRate.value);
+        const isRepayment = mortageType.value === 'repayment';
+
+        // Simplified calculation for demonstration
+        const monthlyRate = rate / 100 / 12;
+        const numberOfPayments = term * 12;
+        const monthlyPayment = isRepayment
+            ? (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments))
+            : principal * monthlyRate;
+
+        calculationResult.value = {
+            monthlyPayment: monthlyPayment.toFixed(2),
+            totalPayment: (monthlyPayment * numberOfPayments).toFixed(2),
+        };
+
+        console.log('Proceeding with calculation...', calculationResult.value);
     }
 };
 </script>
@@ -49,15 +74,15 @@ const calculateRepayments = () => {
                     >Clear All
                     </button>
                 </div>
-                <MortageAmount v-model="mortgageAmount" ref="mortageAmountRef" />
+                <MortageAmount v-model="mortageAmount" ref="mortageAmountRef" />
                 <div class="flex flex-col sm:flex-row mb-3 gap-x-4">
-                    <MortageTerm v-model="mortgageTerm" ref="mortageTermRef" />
+                    <MortageTerm v-model="mortageTerm" ref="mortageTermRef" />
                     <InterestRate v-model="interestRate" ref="interestRateRef" />
                 </div>
-                <MortageType />
+                <MortageType v-model="mortageType" ref="mortageTypeRef" />
                 <ButtonCalculate @click="calculateRepayments" />
             </div>
-            <CardResults />
+            <CardResults :result="calculationResult"  />
         </div>
     </div>
 </template>

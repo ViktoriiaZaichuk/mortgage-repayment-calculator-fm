@@ -28,19 +28,17 @@ const handleInput = (event) => {
     rawValue.value = value;
 
     // Emit the raw value to the parent
-    emit('update:modelValue', rawValue.value);
+    emit('update:modelValue', value);
 };
 
 const validateInput = () => {
     hasError.value = !rawValue.value; // Set error if the field is empty
-    console.log('InterestRate validateInput called. Has error:', hasError.value);
 };
 
 const clearData = () => {
     rawValue.value = '';
     emit('update:modelValue', '');
     hasError.value = false;
-    console.log('InterestRate clearData called.');
 };
 
 defineExpose({

@@ -22,7 +22,7 @@ const handleInput = (event) => {
     rawValue.value = value;
 
     // Emit the raw value to the parent
-    emit('update:modelValue', rawValue.value);
+    emit('update:modelValue', value);
 };
 
 const validateInput = () => {
