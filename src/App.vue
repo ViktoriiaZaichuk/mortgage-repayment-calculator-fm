@@ -21,13 +21,9 @@ let interestRateRef = ref(null);
 let mortageTypeRef = ref(null);
 
 const clearData = () => {
-    mortageAmountRef.value.clearData();
-    mortageTermRef.value.clearData();
-    interestRateRef.value.clearData();
-    mortageTypeRef.value.clearData();
-
-    // Reset the calculation result
-    calculationResult.value = null; 
+    const refs = [mortageAmountRef, mortageTermRef, interestRateRef, mortageTypeRef];
+    refs.forEach(ref => ref.value?.clearData());
+    calculationResult.value = null;
 };
 
 const calculateRepayments = () => {
@@ -39,13 +35,13 @@ const calculateRepayments = () => {
     if (!mortageAmount.value || !mortageTerm.value || !interestRate.value || !mortageType.value) {
         console.log('Some fields are missing');
     } else {
-        // Example calculation logic
+        // Calculation logic
         const principal = parseFloat(mortageAmount.value);
         const term = parseFloat(mortageTerm.value);
         const rate = parseFloat(interestRate.value);
         const isRepayment = mortageType.value === 'repayment';
 
-        // Simplified calculation for demonstration
+        // Calculation for demonstration
         const monthlyRate = rate / 100 / 12;
         const numberOfPayments = term * 12;
         const monthlyPayment = isRepayment

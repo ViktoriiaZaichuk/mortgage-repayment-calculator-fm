@@ -59,12 +59,12 @@ defineExpose({
             :class="{'border-red': hasError, 'border-slate300': !hasError}"
             class="flex rounded border hover:border-slate700 rounded-m overflow-clip cursor-pointer">
             <input 
-            type="text"
-            id="interest-rate"
-            v-model="rawValue"
-            @input="handleInput"
-            @blur="validateInput"
-            class="focus:outline-none focus:ring-0 focus:bg-white p-2 text-slate900 font-bold inline-block w-full autofill:bg-transparent"
+                type="text"
+                id="interest-rate"
+                v-model="rawValue"
+                @input="handleInput"
+                @blur="validateInput"
+                class="focus:outline-none focus:ring-0 focus:bg-white p-2 text-slate900 font-bold inline-block w-full autofill:bg-transparent"
             >
             <span 
                 :class="{'bg-red text-white': hasError, 'bg-slate-100': !hasError}"
